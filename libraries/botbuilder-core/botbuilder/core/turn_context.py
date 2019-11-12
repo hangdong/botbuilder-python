@@ -355,3 +355,22 @@ class TurnContext:
                 if entity.type.lower() == "mention":
                     result.append(entity)
         return result
+    
+    @staticmethod
+    def teams_get_channel_id(activity: Activity) -> str:
+        channel_data = TeamsChannelData(**activity.channel_data)
+        return channel_data.channel.id if channel_data is not None 
+                                            and channel_data.channel is not None : None
+    
+    @staticmethod
+    def teams_get_team_info(activity: Activity) -> TeamInfo:
+        channel_data = TeamsChannelData(**activity.channel_data)
+        return channel_data.team if channel_data is not None : None
+    
+    @staticmethod
+    def teams_notify_user(activity: Activity) -> str:
+        teams_channel_data = TeamsChannelData(**activity.channel_data)
+        if teams_channel_data is None:
+            activity.channel_data = teams_channel_data
+        
+        teams_channel_data.notification = Notification(alert: True)

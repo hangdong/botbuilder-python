@@ -11,10 +11,11 @@ class NotificationInfo:
     def __init__(self, alert: bool = False):
         self._alert = alert
 
-    @property
-    def alert():
+    def get_alert(self):
         return self._alert
 
-    @alert.setter
-    def alert(alert):
+    
+    def set_alert(self, alert):
         self._alert = alert
+
+    alert = property(get_alert, set_alert)

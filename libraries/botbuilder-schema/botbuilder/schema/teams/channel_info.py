@@ -11,19 +11,18 @@ class ChannelInfo:
     def __init__(self, id="", name=""):
         self._id = id
         self._name = name
-
-    @property
-    def id(self):
+    
+    def get_id(self):
         return self._id
-
-    @id.setter
-    def id(self, id):
+    
+    def set_id(self, id):
         self._id = id
-
-    @property
-    def name(self):
+    
+    def get_name(self):
         return self._name
 
-    @name.setter
-    def name(self, name):
+    def set_name(self, name):
         self._name = name
+    
+    id = property(get_id, set_id)
+    name = property(get_name, set_name)
