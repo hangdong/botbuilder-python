@@ -13,10 +13,6 @@ from botbuilder.schema.teams import (
 )
 from botframework.connector import Channels
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 0a80d56da73ef9d6e3815715a41519b03d9aa072
 class TeamsActivityHandler(ActivityHandler):
     async def on_turn(self, turn_context: TurnContext):
         if turn_context is None:
@@ -72,16 +68,6 @@ class TeamsActivityHandler(ActivityHandler):
                 if channel_data.event_type == "channelCreated":
                     return await self.on_teams_channel_created_activity(
                         channel_data.channel, channel_data.team, turn_context
-<<<<<<< HEAD
-                        )
-                if channel_data.event_type == "channelDeleted":
-                    return await self.on_teams_channel_deleted_activity(
-                        channel_data.channel, channel_data.team, turn_context
-                        )
-                if channel_data.event_type == "channelRenamed":
-                    return await self.on_teams_channel_renamed_activity(
-                        channel_data.channel, channel_data.team, turn_context)
-=======
                     )
                 if channel_data.event_type == "channelDeleted":
                     return await self.on_teams_channel_deleted_activity(
@@ -91,7 +77,6 @@ class TeamsActivityHandler(ActivityHandler):
                     return await self.on_teams_channel_renamed_activity(
                         channel_data.channel, channel_data.team, turn_context
                     )
->>>>>>> 0a80d56da73ef9d6e3815715a41519b03d9aa072
                 if channel_data.event_type == "teamRenamed":
                     return await self.on_teams_team_renamed_activity(
                         channel_data.team, turn_context
@@ -201,8 +186,4 @@ class TeamsActivityHandler(ActivityHandler):
             self._body = body
 
         def create_invoke_response(self) -> InvokeResponse:
-<<<<<<< HEAD
             return InvokeResponse(status=int(self._status_code), body=self._body)
-=======
-            return InvokeResponse(status=int(self._status_code), body=self._body)
->>>>>>> 0a80d56da73ef9d6e3815715a41519b03d9aa072
