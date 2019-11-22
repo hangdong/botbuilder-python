@@ -2,7 +2,7 @@
 # Licensed under the MIT License.
 
 from botbuilder.core import MessageFactory, TurnContext
-from botbuilder.core.teams import TeamsActivityHandler
+from botbuilder.core.teams import TeamsActivityHandler, TeamsInfo
 from botbuilder.schema.teams import TeamsChannelAccount
 from typing import List
 

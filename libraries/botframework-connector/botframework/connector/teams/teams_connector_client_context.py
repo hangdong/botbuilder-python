@@ -1,0 +1,3 @@
+
+class TeamsConnectorClientContext(ServiceClient):
+    pass
