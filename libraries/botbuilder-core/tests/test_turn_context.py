@@ -9,6 +9,7 @@ from botbuilder.schema import (
     ActivityTypes,
     ChannelAccount,
     ConversationAccount,
+    Entity,
     Mention,
     ResourceResponse,
 )
@@ -304,17 +305,21 @@ class TestBotContext(aiounittest.AsyncTestCase):
         ), "reference id matches outgoing reply id"
 
     def test_should_remove_at_mention_from_activity(self):
+        mention = Mention(
+                    type="mention",
+                    text="<at>TestOAuth619</at>",
+                    mentioned=ChannelAccount(name="Bot", id="TestOAuth619")
+        )
+        mention_data = mention.serialize()
+        print(mention_data)
+        print("----------")
+        entity = Entity(type="mention").deserialize(mention_data)
+        print(entity)
         activity = Activity(
             type="message",
             text="<at>TestOAuth619</at> test activity",
             recipient=ChannelAccount(id="TestOAuth619"),
-            entities=[
-                Mention(
-                    type="mention",
-                    text="<at>TestOAuth619</at>",
-                    mentioned=ChannelAccount(name="Bot", id="TestOAuth619"),
-                )
-            ],
+            entities=[entity],
         )
 
         text = TurnContext.remove_recipient_mention(activity)
