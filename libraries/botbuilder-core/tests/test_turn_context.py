@@ -311,10 +311,7 @@ class TestBotContext(aiounittest.AsyncTestCase):
                     mentioned=ChannelAccount(name="Bot", id="TestOAuth619")
         )
         mention_data = mention.serialize()
-        print(mention_data)
-        print("----------")
         entity = Entity(type="mention").deserialize(mention_data)
-        print(entity)
         activity = Activity(
             type="message",
             text="<at>TestOAuth619</at> test activity",
