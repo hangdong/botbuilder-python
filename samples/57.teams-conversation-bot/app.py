@@ -5,6 +5,10 @@ import asyncio
 import sys
 import uuid
 from datetime import datetime
+<<<<<<< HEAD
+=======
+from typing import Dict
+>>>>>>> 63f59b1... adding place holders for samples
 
 from flask import Flask, request, Response
 from botbuilder.core import (
@@ -12,9 +16,15 @@ from botbuilder.core import (
     TurnContext,
     BotFrameworkAdapter,
 )
+<<<<<<< HEAD
 from botbuilder.schema import Activity, ActivityTypes
 
 from bots import TeamsConversationBot
+=======
+from botbuilder.schema import Activity, ActivityTypes, ConversationReference
+
+from bots import ProactiveBot
+>>>>>>> 63f59b1... adding place holders for samples
 
 # Create the loop and Flask app
 LOOP = asyncio.get_event_loop()
@@ -56,13 +66,24 @@ async def on_error(context: TurnContext, error: Exception):
 
 ADAPTER.on_turn_error = on_error
 
+<<<<<<< HEAD
+=======
+# Create a shared dictionary.  The Bot will add conversation references when users
+# join the conversation and send messages.
+CONVERSATION_REFERENCES: Dict[str, ConversationReference] = dict()
+
+>>>>>>> 63f59b1... adding place holders for samples
 # If the channel is the Emulator, and authentication is not in use, the AppId will be null.
 # We generate a random AppId for this case only. This is not required for production, since
 # the AppId will have a value.
 APP_ID = SETTINGS.app_id if SETTINGS.app_id else uuid.uuid4()
 
 # Create the Bot
+<<<<<<< HEAD
 BOT = TeamsConversationBot(APP.config["APP_ID"], APP.config["APP_PASSWORD"])
+=======
+BOT = ProactiveBot(CONVERSATION_REFERENCES)
+>>>>>>> 63f59b1... adding place holders for samples
 
 # Listen for incoming requests on /api/messages.
 @APP.route("/api/messages", methods=["POST"])
