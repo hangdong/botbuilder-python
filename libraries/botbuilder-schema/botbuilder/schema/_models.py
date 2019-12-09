@@ -1110,7 +1110,7 @@ class Mention(Model):
         super(Mention, self).__init__(**kwargs)
         self.mentioned = kwargs.get("mentioned", None)
         self.text = kwargs.get("text", None)
-        self.type = kwargs.get("type", None)
+        self.type = kwargs.get("type", "mention")
 
 
 class MessageReaction(Model):
