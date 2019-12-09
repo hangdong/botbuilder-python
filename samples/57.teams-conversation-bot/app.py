@@ -5,6 +5,10 @@ import asyncio
 import sys
 import uuid
 from datetime import datetime
+<<<<<<< HEAD
+=======
+from typing import Dict
+>>>>>>> cd9651bd29e2b15caa3ba1cb5912927f019f0085
 
 from flask import Flask, request, Response
 from botbuilder.core import (
@@ -12,9 +16,15 @@ from botbuilder.core import (
     TurnContext,
     BotFrameworkAdapter,
 )
+<<<<<<< HEAD
 from botbuilder.schema import Activity, ActivityTypes
 
 from bots import TeamsConversationBot
+=======
+from botbuilder.schema import Activity, ActivityTypes, ConversationReference
+
+from bots import ProactiveBot
+>>>>>>> cd9651bd29e2b15caa3ba1cb5912927f019f0085
 
 # Create the loop and Flask app
 LOOP = asyncio.get_event_loop()
