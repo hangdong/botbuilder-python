@@ -1316,7 +1316,7 @@ class Mention(Model):
     }
 
     def __init__(
-        self, *, mentioned=None, text: str = None, type: str = None, **kwargs
+        self, *, mentioned=None, text: str = None, type: str = "mention", **kwargs
     ) -> None:
         super(Mention, self).__init__(**kwargs)
         self.mentioned = mentioned
