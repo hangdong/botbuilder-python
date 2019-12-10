@@ -1,7 +1,6 @@
 from botbuilder.core import CardFactory, TurnContext, MessageFactory
 from botbuilder.core.teams import TeamsActivityHandler, TeamsInfo
-from botbuilder.core.teams.teams_activity_extensions import teams_get_channel_id
-from botbuilder.schema import CardAction, ConversationParameters, HeroCard, Mention
+from botbuilder.schema import CardAction, HeroCard, Mention
 from botbuilder.schema._connector_client_enums import ActionTypes
 
 
