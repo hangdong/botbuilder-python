@@ -1,5 +1,4 @@
-from botframework.connector.auth import MicrosoftAppCredentials
-from botbuilder.core import BotFrameworkAdapter, CardFactory, TurnContext, MessageFactory
+from botbuilder.core import CardFactory, TurnContext, MessageFactory
 from botbuilder.core.teams import TeamsActivityHandler, TeamsInfo
 from botbuilder.core.teams.teams_activity_extensions import teams_get_channel_id
 from botbuilder.schema import CardAction, ConversationParameters, HeroCard, Mention
@@ -21,6 +20,10 @@ class TeamsConversationBot(TeamsActivityHandler):
 
         if turn_context.activity.text == "UpdateCardAction":
             await self._update_card_activity(turn_context)
+            return
+
+        if turn_context.activity.text == "MessageAllMembers":
+            await self._message_all_members(turn_context)
             return
 
         if turn_context.activity.text == "Delete":
@@ -92,24 +95,23 @@ class TeamsConversationBot(TeamsActivityHandler):
         await turn_context.update_activity(updated_activity)
     
     async def _message_all_members(self, turn_context: TurnContext):
-        teams_channel_id = teams_get_channel_id(turn_context.activity)
-        service_url = turn_context.activity.service_url
-        creds = MicrosoftAppCredentials(app_id=self._app_id, password=self._app_password)
-        conversation_reference = None
-
         team_members = await TeamsInfo.get_members(turn_context)
 
         for member in team_members:
-            proactive_message = MessageFactory.text(f"Hello {member.given_name} {member.surname}. I'm a Teams conversation bot.")
+            proactive_message = MessageFactory.text(f"Hello {member.name}. I'm a Teams conversation bot.")
+
+            async def get_ref(tc1):
+                ref2 = TurnContext.get_conversation_reference(tc1.activity)
+                return await tc1.adapter.continue_conversation(self._app_id, ref2, send_message)
+
+            async def send_message(tc2: TurnContext):
+                return tc2
 
             ref = TurnContext.get_conversation_reference(turn_context.activity)
-            ref.user = member
-
-            async def get_ref(tc1: TurnContext):
-                ref2 = TurnContext.get_conversation_reference(t1.activity)
-                await BotFrameworkAdapter(t1.adapter).continue_conversation(ref2, lambda t2: await t2.send_activity(proactive_message))
-
-            await BotFrameworkAdapter(turn_context.adapter).create_conversation(ref, )
+            result = await turn_context.adapter.create_conversation(ref, get_ref)
+            await result.send_activity(proactive_message)
+        
+        await turn_context.send_activity(MessageFactory.text("All messages have been sent"))
             
            
     
