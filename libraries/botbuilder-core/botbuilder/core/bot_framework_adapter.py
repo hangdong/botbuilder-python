@@ -172,9 +172,14 @@ class BotFrameworkAdapter(BotAdapter, UserTokenProvider):
                 )
 
             # Create conversation
+<<<<<<< HEAD
             parameters = ConversationParameters(
                 bot=reference.bot, members=[reference.user], is_group=False
             )
+=======
+            parameters = ConversationParameters(bot=reference.bot, members=[reference.user])
+            
+>>>>>>> 7288f72e5148121513293c7b45d31d2bbc9523d3
             client = await self.create_connector_client(reference.service_url)
 
             # Mix in the tenant ID if specified. This is required for MS Teams.
