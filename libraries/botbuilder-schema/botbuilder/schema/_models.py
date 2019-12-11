@@ -947,7 +947,7 @@ class HeroCard(Model):
      itself
     :type tap: ~botframework.connector.models.CardAction
     """
-
+    
     _attribute_map = {
         "title": {"key": "title", "type": "str"},
         "subtitle": {"key": "subtitle", "type": "str"},

@@ -1,71 +1,58 @@
 {
-  "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.5/MicrosoftTeams.schema.json",
-  "manifestVersion": "1.5",
-  "version": "1.0",
-  "id": "00000000-0000-0000-0000-000000000000",
-  "packageName": "com.microsoft.teams.samples.fetchtask.messagingextension",
-  "developer": {
-    "name": "Microsoft",
-    "websiteUrl": "https://www.microsoft.com",
-    "privacyUrl": "https://www.teams.com/privacy",
-    "termsOfUseUrl": "https://www.teams.com/termsofuser"
-  },
-  "icons": {
-    "color": "color.png",
-    "outline": "outline.png"
-  },
-  "name": {
-    "short": "Fetch Task Ext",
-    "full": "Fetch Task Messaging Extension"
-  },
-  "description": {
-    "short": "Demonstrates a Fetch Task Messaging Extension",
-    "full": "Demonstrates a Fetch Task Messaging Extension"
-  },
-  "accentColor": "#FFFFFF",
-  "bots": [
-    {
-      "botId": "00000000-0000-0000-0000-000000000000",
-      "scopes": [
-        "personal",
-        "team",
-        "groupchat"
-      ],
-      "supportsFiles": false,
-      "isNotificationOnly": false
-    }
-  ],
-  "composeExtensions": [
-    {
-      "botId": "00000000-0000-0000-0000-000000000000",
-      "canUpdateConfiguration": false,
-      "commands": [
-        {
-          "id": "createWithPreview",
-          "type": "action",
-          "title": "Create Survey Card",
-          "description": "Example of creating a Survey Card",
-          "initialRun": false,
-          "fetchTask": true,
-          "context": [
-            "commandBox",
-            "compose",
-            "message"
-          ],
-          "parameters": [
-            {
-              "name": "param",
-              "title": "param",
-              "description": ""
+    "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.5/MicrosoftTeams.schema.json",
+    "manifestVersion": "1.5",
+    "version": "1.0",
+    "id": "",
+    "packageName": "com.teams.sample.linkunfurling",
+    "developer": {
+      "name": "Link Unfurling",
+      "websiteUrl": "https://www.microsoft.com",
+      "privacyUrl": "https://www.teams.com/privacy",
+      "termsOfUseUrl": "https://www.teams.com/termsofuser"
+    },
+    "icons": {
+      "color": "color.png",
+      "outline": "outline.png"
+    },
+    "name": {
+      "short": "Link Unfurling",
+      "full": "Link Unfurling Sample"
+    },
+    "description": {
+      "short": "Link Unfurling sample",
+      "full": "This sample demonstrates Link Unfurling for *.BotFramework.com urls."
+    },
+    "accentColor": "#FFFFFF",
+    "composeExtensions": [
+      {
+        "botId": "",
+        "commands": [
+          {
+            "id": "searchQuery",
+            "context": [ "commandBox" ],
+            "description": "Test command to run query",
+            "title": "Search Command",
+            "type": "query",
+            "parameters": [
+              {
+                "name": "searchQuery",
+                "title": "Search Query",
+                "description": "Your search query",
+                "inputType": "text"
+              }
+            ]
+          }
+        ],
+        "messageHandlers": [
+          {
+            "type": "link",
+            "value": {
+              "domains": [
+                "*.botframework.com"
+              ]
             }
-          ]
-        }
-      ]
-    }
-  ],
-  "permissions": [
-    "identity",
-    "messageTeamMembers"
-  ],
-  "validDomains": []
-}
+          }
+        ]
+      }
+    ]
+  }
