@@ -118,7 +118,7 @@ fi
 n=0
 until [ $n -ge 3 ]
 do
-   az webapp up --sku F1 -n ${WEBAPP_NAME} -l westus --resource-group ${AZURE_RESOURCE_GROUP} && break  
+   az webapp up --sku P1V2 -n ${WEBAPP_NAME} -l westus --resource-group ${AZURE_RESOURCE_GROUP} && break  
    n=$[$n+1]
    sleep 25
 done
@@ -126,6 +126,7 @@ if [[ $n -ge 3 ]]; then
     echo "Could not create webapp ${WEBAPP_NAME}"
     exit 4
 fi
+
 
 
 n=0
