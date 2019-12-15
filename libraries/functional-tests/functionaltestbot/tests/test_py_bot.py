@@ -16,12 +16,13 @@ that was generated when adding DirectLine to the bot's channel.
 
 import os
 import json
-from unittest import TestCase
+import unittest
+
 
 from direct_line_client import DirectLineClient
 
 
-class PyBotTest(TestCase):
+class PyBotTest(unittest.TestCase):
     def setUp(self):
         direct_line_config = os.environ.get(
             "DIRECT_LINE_CONFIG", "DirectLineConfig.json"
@@ -46,3 +47,13 @@ class PyBotTest(TestCase):
         self.assertEqual(200, response.status_code)
         self.assertEqual(f"Echo: {user_message}", text)
         print("SUCCESS!")
+
+if __name__ == "__main__":
+    suite = unittest.TestSuite()
+    suite.addTest(PyBotTest('test_deployed_bot_answer'))
+    result = unittest.TextTestRunner(verbosity=2).run(suite)
+ 
+    if result.wasSuccessful():
+        exit(0)
+    else:
+        exit(1)

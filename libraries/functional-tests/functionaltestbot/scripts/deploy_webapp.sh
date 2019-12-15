@@ -13,7 +13,7 @@ set -e
 WEBAPP_NAME="pyfuntest"
 WEBAPP_URL=
 BOT_NAME="pyfuntest"
-BOT_ID="python_functional"
+BOT_ID="pyfuntest"
 AZURE_RESOURCE_GROUP=
 BOT_APPID=
 BOT_PASSWORD=
@@ -99,9 +99,11 @@ process_args "$@"
 # Recreate Resource Group
 
 # It's ok to fail (set +e) - script continues on error result code.
+echo "Deleting Resource Group ${AZURE_RESOURCE_GROUP}.."
 set +e
 az group delete --name ${AZURE_RESOURCE_GROUP} -y
 
+echo "Creating Resource Group ${AZURE_RESOURCE_GROUP}.."
 n=0
 until [ $n -ge 3 ]
 do
@@ -115,6 +117,7 @@ if [[ $n -ge 3 ]]; then
 fi
 
 # Push Web App
+echo "Push web app.."
 n=0
 until [ $n -ge 3 ]
 do
@@ -127,8 +130,21 @@ if [[ $n -ge 3 ]]; then
     exit 4
 fi
 
+# Verify it's running
+echo "Verify web app is up.."
+n=0
+until [ $n -ge 3 ]
+do
+   az webapp show --name pyfuntest --resource-group pyfuntest | python3 -c "import sys, json, io; input_stream = io.TextIOWrapper(sys.stdin.buffer, encoding='utf-8'); exit(0 if json.load(input_stream)['state'] == 'Running' else 1)" && break
+   n=$[$n+1]
+   sleep 25
+done
+if [[ $n -ge 3 ]]; then
+    echo "Webapp did not get to running state ${WEBAPP_NAME}"
+    exit 4
+fi
 
-
+echo "Create bot.."
 n=0
 until [ $n -ge 3 ]
 do
@@ -143,6 +159,7 @@ fi
 
 
 # Create bot settings
+echo "Create bot settings.."
 n=0
 until [ $n -ge 3 ]
 do
@@ -156,6 +173,7 @@ if [[ $n -ge 3 ]]; then
 fi
 
 # Create DirectLine
+echo "Create DirectLine.."
 cd tests
 n=0
 until [ $n -ge 3 ]
@@ -171,11 +189,13 @@ fi
 
 
 # Run Tests
+sleep 30
+echo "Running tests.."
 pip install requests
 n=0
 until [ $n -ge 3 ]
 do
-   python -m unittest test_py_bot.py && break
+   python test_py_bot.py && break
    n=$[$n+1]
    sleep 25
 done
